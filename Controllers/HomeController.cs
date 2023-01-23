@@ -24,7 +24,10 @@ namespace BookStore2.Controllers
             //var admins = _context.AdminModel.ToList();
             return View();
         }
-
+        public IActionResult Submit()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
