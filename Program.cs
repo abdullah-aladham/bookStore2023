@@ -49,6 +49,9 @@ app.MapRazorPages();
 app.MapControllerRoute(
     name: "Author",
     pattern: "{controller=Author}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "AddAdmin",
+    pattern: "{controller=Admin}/{action=AddAdmin}/{id?}");
 app.MapRazorPages();
 
 app.Run();

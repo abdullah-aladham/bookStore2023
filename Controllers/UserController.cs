@@ -32,5 +32,26 @@ namespace BookStore2.Controllers
             }
             return View(userList);
         }
+        public IActionResult AddUser(UserViewModel userData)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new UserModel();
+                {
+                    Id = userData.Id,
+                    Name = userData.Name,
+                };
+                _context.BookStoreAdmins.Add(user);
+                _context.SaveChanges();
+                TempData["successMessage"] = "Employee created successfully";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["errorMessage"] = "Model data is not valid";
+                return View();
+            }
+            return View();
+        }
     }
 }

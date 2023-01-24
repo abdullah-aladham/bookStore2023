@@ -32,9 +32,25 @@ namespace BookStore2.Controllers
             }
             return View(adminList);
         }
-        [HttpPost]
-        public IActionResult AddAdmin()
-        {
+        public IActionResult AddAdmin(AdminViewModel adminData)
+        { 
+        
+            if(ModelState.IsValid)
+            {
+                var admin = new AdminModel()
+                {
+                    Id = adminData.Id,
+                    Name = adminData.Name,
+                };
+                _context.BookStoreAdmins.Add(admin);
+                _context.SaveChanges();
+                   TempData["successMessage"] = "Employee created successfully";
+                return RedirectToAction("Index");
+            }
+            else {
+                TempData["errorMessage"] = "Model data is not valid";
+                return View();
+           }
             return View();
         }
         [HttpPost]

@@ -1,4 +1,4 @@
-﻿@model List<BookStore2.Models.AdminViewModel>
+﻿@model List<BookStore2.Models.UserViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -21,17 +21,17 @@
         <tbody>
             @if (Model != null && Model.Any())
             {
-                foreach (var admin in Model)
+                foreach (var user in Model)
                 {
                     <tr>
-                        <td>admin.Id</td>
-                        <td>admin.Name</td>
+                        <td>user.Id</td>
+                        <td>user.Name</td>
                         <td>
                             <div class="btn-group btn-group-sm">
-                                <a asp-Controller="AdminController" asp-action="Edit" asp-route="@admin.Id" class="btn btn-primary">Edit</a>
+                                <a asp-Controller="Admin" asp-action="Edit" asp-route="@user.Id" class="btn btn-primary">Edit</a>
                             </div>
                             <div class="btn-group btn-group-sm">
-                                <a asp-Controller="AdminController" asp-action="delete" asp-route="@admin.Id" class="btn btn-danger">delete</a>
+                                <a asp-Controller="Admin" asp-action="delete" asp-route="@user.Id" class="btn btn-danger">delete</a>
                             </div>
                         </td>
                     </tr>
