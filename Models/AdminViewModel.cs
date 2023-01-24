@@ -1,18 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
 namespace BookStore2.Models
 {
-    public class BookModel
+    public class AdminViewModel
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DisplayName("Id")]
         public int Id { get; set; }
+
         [Required]
         [DisallowNull]
         [MaxLength(80)]
-        public string Title { get; set; }   
-
+        [DisplayName("Name")]
+        public string Name { get; set; }
     }
 }

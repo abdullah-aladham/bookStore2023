@@ -12,7 +12,7 @@ namespace BookStore2.Data
 
         }
         
-            public DbSet<AdminModel> BookStoreAdmins { get; set; }
+            public DbSet<AdminViewModel> BookStoreAdmins { get; set; }
         public DbSet<BookModel> Books { get; set; }
         public DbSet<AuthorModel> BookStoreAuthors { get; set; }
         public DbSet<UserModel> BookStoreUsers { get; set; }

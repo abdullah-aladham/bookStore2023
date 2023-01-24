@@ -19,9 +19,7 @@ namespace BookStore2.Controllers
 
         public IActionResult Index()
         {
-            //var books = _context.BookModel.ToList();
-            //var Authors= _context.AuthorModel.ToList();
-            //var admins = _context.AdminModel.ToList();
+          
             return View();
         }
         public IActionResult Submit()

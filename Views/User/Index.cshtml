@@ -1,0 +1,50 @@
+﻿@model List<BookStore2.Models.AdminViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+@Model List<AdminModel>
+
+    <h1>Index</h1>
+
+    <form>
+        <button asp-action="" asp-controller="Author" class="btn btn-primary">Add Admin</button>
+    </form>
+    <table class="table table-responsive table-hover">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var admin in Model)
+                {
+                    <tr>
+                        <td>admin.Id</td>
+                        <td>admin.Name</td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a asp-Controller="AdminController" asp-action="Edit" asp-route="@admin.Id" class="btn btn-primary">Edit</a>
+                            </div>
+                            <div class="btn-group btn-group-sm">
+                                <a asp-Controller="AdminController" asp-action="delete" asp-route="@admin.Id" class="btn btn-danger">delete</a>
+                            </div>
+                        </td>
+                    </tr>
+
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="2">
+                        <div><p>No Admins Avaliable at the moment</p></div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

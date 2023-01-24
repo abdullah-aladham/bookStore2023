@@ -7,6 +7,7 @@ namespace BookStore2.Models
     public class AdminModel
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         
         [Required]

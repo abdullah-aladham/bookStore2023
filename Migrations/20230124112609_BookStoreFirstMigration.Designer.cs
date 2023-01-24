@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStore2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230123203722_BookStoreFirstMigration")]
+    [Migration("20230124112609_BookStoreFirstMigration")]
     partial class BookStoreFirstMigration
     {
         /// <inheritdoc />
@@ -22,7 +22,7 @@ namespace BookStore2.Migrations
                 .HasAnnotation("ProductVersion", "7.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("BookStore2.Models.AdminModel", b =>
+            modelBuilder.Entity("AdminViewModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

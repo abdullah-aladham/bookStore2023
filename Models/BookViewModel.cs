@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
 namespace BookStore2.Models
 {
-    public class BookModel
+    public class BookViewModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -12,7 +12,6 @@ namespace BookStore2.Models
         [Required]
         [DisallowNull]
         [MaxLength(80)]
-        public string Title { get; set; }   
-
+        public string Title { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace BookStore2.Migrations
                 .HasAnnotation("ProductVersion", "7.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("BookStore2.Models.AdminModel", b =>
+            modelBuilder.Entity("AdminViewModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
