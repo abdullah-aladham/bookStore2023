@@ -2,8 +2,8 @@
 @{
     Layout = "_Layout";
     TempData["Title"] = "Update Admin";
-    var successMessage = TempData["successMessage"]?.ToString();
-    var errorMessage = TempData["errorMessage"]?.ToString();
+    //var successMessage = TempData["successMessage"]?.ToString();
+    //var errorMessage = TempData["errorMessage"]?.ToString();
 }
 
 <!DOCTYPE html>
@@ -23,21 +23,17 @@
     </style>
 </head>
 <body>
-    <form action="AddAdmin" method="post">
+    <form action="UpdateAdmin" method="post">
         <div class="mb-3">
             <label class="form-label">Id</label>
-            <input type="text" class="form-control" asp-for="Id" />
-            <span asp-validation-for="Id" class="text-danger"></span>
+            <input type="text" class="form-control" asp-for="Id" readonly />
         </div>
         <div class="mb-3">
             <label class="form-label">Name</label>
-            <input type="text" class="form-control" asp-for="Name" />
-            <span asp-validation-for="Name" class="text-danger"></span>
+            <input type="text" class="form-control" asp-for="Name"  />
         </div>
         <div class="d-grid">
             <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-
-    </form>
+        </div>    </form>
 </body>
 </html>

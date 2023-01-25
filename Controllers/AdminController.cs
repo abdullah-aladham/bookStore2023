@@ -32,7 +32,7 @@ namespace BookStore2.Controllers
             }
             return View(adminList);
         }
-        [HttpPost]
+        //[HttpPost]
         public IActionResult AddAdmin(AdminViewModel adminData)
         {
 
@@ -63,7 +63,7 @@ namespace BookStore2.Controllers
             }
             
         }
-        [HttpPost]
+        //[HttpPost]
         public IActionResult UpdateAdmin()
         {
             return View();
@@ -74,7 +74,7 @@ namespace BookStore2.Controllers
             return View();
 
         }
-        [HttpGet]
+        //[HttpGet]
         public IActionResult Edit(int Id) {
             try
             {
@@ -103,6 +103,38 @@ namespace BookStore2.Controllers
             
 
         }
+        //[HttpPost]
+        public IActionResult EditAdmin(AdminViewModel adminData)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var admin = new AdminModel()
+                    {
+                        Id = adminData.Id,
+                        Name = adminData.Name,
+                    };
+                    _context.BookStoreAdmins.Update(admin);
+                    _context.SaveChanges();
+                    TempData["SuccessMessage"] = "Admin data updated Successfully";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["errormessage"] = "Something Wrong happened";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception e)
+            {
+
+                TempData["errormessage"] = e.Message;
+                return View();
+            }
+
+        }
+        
     }
 }
 
