@@ -134,7 +134,35 @@ namespace BookStore2.Controllers
             }
 
         }
-        
+
+        public IActionResult Delete(int Id) {
+            try
+            {
+                var admin = _context.BookStoreAdmins.SingleOrDefault(x => x.Id == Id);
+                if (admin != null)
+                {
+                    var adminView = new AdminViewModel()
+                    {
+                        Id = admin.Id,
+                        Name = admin.Name,
+                    };
+                    return View(adminView);
+                }
+                else
+                {
+                    TempData["errorMessage"] = "Admin details are not avaliable with Id:{Id}";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                TempData["errorMessage"] = ex.Message;
+                return RedirectToAction("Index");
+            }
+
+        }
+
     }
 }
 
