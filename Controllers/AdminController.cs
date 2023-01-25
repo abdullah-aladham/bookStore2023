@@ -32,26 +32,36 @@ namespace BookStore2.Controllers
             }
             return View(adminList);
         }
+        [HttpPost]
         public IActionResult AddAdmin(AdminViewModel adminData)
-        { 
-        
-            if(ModelState.IsValid)
+        {
+
+            try
             {
-                var admin = new AdminModel()
+                if (ModelState.IsValid)
                 {
-                    Id = adminData.Id,
-                    Name = adminData.Name,
-                };
-                _context.BookStoreAdmins.Add(admin);
-                _context.SaveChanges();
-                   TempData["successMessage"] = "Employee created successfully";
-                return RedirectToAction("Index");
+                    var admin = new AdminModel()
+                    {
+                        Id = adminData.Id,
+                        Name = adminData.Name,
+                    };
+                    _context.BookStoreAdmins.Add(admin);
+                    _context.SaveChanges();
+                    TempData["successMessage"] = "Employee created successfully";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["errorMessage"] = "Model data is not valid";
+                    return View();
+                }
             }
-            else {
-                TempData["errorMessage"] = "Model data is not valid";
-                return View();
-           }
-            return View();
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
         [HttpPost]
         public IActionResult UpdateAdmin()
@@ -62,6 +72,35 @@ namespace BookStore2.Controllers
         public IActionResult DeleteAdmin()
         {
             return View();
+
+        }
+        [HttpGet]
+        public IActionResult Edit(int Id) {
+            try
+            {
+                var admin = _context.BookStoreAdmins.SingleOrDefault(x => x.Id == Id);
+                if (admin != null)
+                {
+                    var adminView = new AdminViewModel()
+                    {
+                        Id = admin.Id,
+                        Name = admin.Name,
+                    };
+                    return View(adminView);
+                }
+                else
+                {
+                    TempData["errorMessage"] = "Admin details are not avaliable with Id:{Id}";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                TempData["errorMessage"]=ex.Message;
+                return RedirectToAction("Index");
+            }
+            
 
         }
     }

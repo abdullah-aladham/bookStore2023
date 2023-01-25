@@ -38,12 +38,12 @@ namespace BookStore2.Controllers
         {
             if (ModelState.IsValid)
             {
-                var author = new AdminModel()
+                var author = new AuthorModel()
                 {
                     Id = authorData.Id,
                     Name = authorData.Name,
                 };
-                _context.BookStoreAdmins.Add(author);
+                _context.BookStoreAuthors.Add(author);
                 _context.SaveChanges();
                 TempData["successMessage"] = "Employee created successfully";
                 return RedirectToAction("Index");
@@ -57,9 +57,24 @@ namespace BookStore2.Controllers
           // return View();
         }
         [HttpPost]
-        public IActionResult UpdateAuthor()
+        public IActionResult UpdateAuthor(AuthorViewModel authorUpdateData)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var author = new AuthorModel() { 
+                Name=authorUpdateData.Name
+                };
+                _context.BookStoreAuthors.Add(author);
+                _context.SaveChanges();
+                TempData["SuccessMessage"] = "Author Updated Successfully";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["errorMessage"] = "Couldn't update data";
+                return View();
+            }
+            //return View();
         }
         [HttpDelete]
         public IActionResult DeleteAuthor()

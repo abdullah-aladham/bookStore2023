@@ -41,7 +41,7 @@ namespace BookStore2.Controllers
                     Id = bookData.Id,
                     Title = bookData.Title,
                 };
-                _context.BookStoreAdmins.Add(book);
+                _context.Books.Add(book);
                 _context.SaveChanges();
                 TempData["successMessage"] = "Employee created successfully";
                 return RedirectToAction("Index");
@@ -51,6 +51,13 @@ namespace BookStore2.Controllers
                 TempData["errorMessage"] = "Model data is not valid";
                 return View();
             }
+
+        }
+        public IActionResult UpdateBook()
+        {
+            return View();
+        }
+        public IActionResult DeleteBook(int id) {
             return View();
         }
     }

@@ -1,9 +1,6 @@
-﻿@model BookStore2.Models.AdminViewModel
+﻿@model BookStore2.Models.BookViewModel
 @{
     Layout = "_Layout";
-    TempData["Title"] = "Update Admin";
-    var successMessage = TempData["successMessage"]?.ToString();
-    var errorMessage = TempData["errorMessage"]?.ToString();
 }
 
 <!DOCTYPE html>
@@ -12,27 +9,19 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>AddAdmin</title>
-    <style>
-        input {
-            padding: 5px;
-        }
-
-        div {
-            margin: 5px;
-        }
-    </style>
+    
 </head>
 <body>
-    <form action="AddAdmin" method="post">
+    <form action="AddBook" method="post">
         <div class="mb-3">
             <label class="form-label">Id</label>
             <input type="text" class="form-control" asp-for="Id" />
             <span asp-validation-for="Id" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label class="form-label">Name</label>
-            <input type="text" class="form-control" asp-for="Name" />
-            <span asp-validation-for="Name" class="text-danger"></span>
+            <label class="form-label">Title</label>
+            <input type="text" class="form-control" asp-for="Title" />
+            <span asp-validation-for="Title" class="text-danger"></span>
         </div>
         <div class="d-grid">
             <button type="submit" class="btn btn-primary">Submit</button>

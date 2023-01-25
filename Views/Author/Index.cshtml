@@ -4,12 +4,12 @@
     ViewData["Title"] = "Index";
 
 }
-@Model List<AdminModel>
+@Model List<AuthorModel>
 
     <h1>Index</h1>
 
     <form>
-        <button asp-action="AddAdmin" asp-controller="Admin" class="btn btn-primary">Add Admin</button>
+        <button asp-action="AddAuthor" asp-controller="Author" class="btn btn-primary">Add Author</button>
     </form>
     <table class="table table-responsive table-hover">
         <thead>
@@ -21,17 +21,18 @@
         <tbody>
             @if (Model != null && Model.Any())
             {
-                foreach (var admin in Model)
+                foreach (var author in Model)
                 {
                     <tr>
-                        <td>admin.Id</td>
-                        <td>admin.Name</td>
+                        <td>@author.Id</td>
+                        <td>@author.Name</td>
                         <td>
                             <div class="btn-group btn-group-sm">
-                                <a asp-Controller="AdminController" asp-action="Edit" asp-route="@admin.Id" class="btn btn-primary">Edit</a>
-                            </div>
-                            <div class="btn-group btn-group-sm">
-                                <a asp-Controller="AdminController" asp-action="delete" asp-route="@admin.Id" class="btn btn-danger">delete</a>
+                                <div class="btn-group btn-group-sm">
+                                    <a href="localhost:7011/Admin/EditAdmin/id" class="btn btn-primary">Edit</a>
+                                </div>
+                                <div class="btn-group btn-group-sm">
+                                    <a href="localhost:7011 /Admin/DeleteAdmin/{id?}" class="btn btn-danger">delete</a>
                             </div>
                         </td>
                     </tr>
@@ -42,7 +43,7 @@
             {
                 <tr>
                     <td colspan="2">
-                        <div><p>No Admins Avaliable at the moment</p></div>
+                        <div><p>No Authors Avaliable at the moment</p></div>
                     </td>
                 </tr>
             }

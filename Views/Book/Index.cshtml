@@ -1,15 +1,15 @@
-﻿@model List<BookStore2.Models.UserViewModel>
+﻿@model List<BookStore2.Models.BookViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Book Main page";
 
 }
 @Model List<BookModel>
 
-    <h1>Index</h1>
+    <h1>@ViewData["Title"]</h1>
 
     <form>
-        <button asp-action="AddUser" asp-controller="User" class="btn btn-primary">Add User</button>
+        <button asp-action="AddBook" asp-controller="Book" class="btn btn-primary">Add Book</button>
     </form>
     <table class="table table-responsive table-hover">
         <thead>
@@ -21,17 +21,18 @@
         <tbody>
             @if (Model != null && Model.Any())
             {
-                foreach (var user in Model)
+                foreach (var book in Model)
                 {
                     <tr>
-                        <td>user.Id</td>
-                        <td>user.Name</td>
+                        <td>@book.Id</td>
+                        <td>@book.Title</td>
                         <td>
                             <div class="btn-group btn-group-sm">
-                                <a href="" asp-Controller="User" asp-action="UpdateUser" asp-route="@user.Id" class="btn btn-primary">Edit</a>
-                            </div>
-                            <div class="btn-group btn-group-sm">
-                                <a href="" asp-Controller="User" asp-action="DeleteUser" asp-route="@user.Id" class="btn btn-danger">delete</a>
+                                <div class="btn-group btn-group-sm">
+                                    <a href="localhost:7011/Book/EditBook/@book.Id" class="btn btn-primary">Edit</a>
+                                </div>
+                                <div class="btn-group btn-group-sm">
+                                    <a href="localhost:7011/Admin/DeleteBook/@book.Title" class="btn btn-danger">delete</a>
                             </div>
                         </td>
                     </tr>

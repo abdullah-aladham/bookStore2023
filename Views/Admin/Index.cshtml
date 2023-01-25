@@ -24,14 +24,14 @@
                 foreach(var admin in Model)
                 {
                    <tr>
-                       <td>admin.Id</td>
-                       <td>admin.Name</td>
+                       <td>@admin.Id</td>
+                       <td>@admin.Name</td>
                        <td>
-                           <div class="btn-group btn-group-sm">
-                               <a asp-Controller="AdminController" asp-action="Edit" asp-route="@admin.Id"class="btn btn-primary">Edit</a>
+                            <div class="btn-group btn-group-sm">
+                               <a href="localhost:7011/Admin/EditAdmin/id" class="btn btn-primary">Edit</a>
                            </div>
                             <div class="btn-group btn-group-sm">
-                                <a asp-Controller="AdminController" asp-action="delete" asp-route="@admin.Id" class="btn btn-danger">delete</a>
+                                <a href="localhost:7011 /Admin/DeleteAdmin/{id?}" class="btn btn-danger">delete</a>
                             </div>
                        </td>
                    </tr>

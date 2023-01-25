@@ -36,12 +36,12 @@ namespace BookStore2.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new UserModel();
+                var user = new UserModel()
                 {
                     Id = userData.Id,
                     Name = userData.Name,
                 };
-                _context.BookStoreAdmins.Add(user);
+                _context.BookStoreUsers.Add(user);
                 _context.SaveChanges();
                 TempData["successMessage"] = "Employee created successfully";
                 return RedirectToAction("Index");
@@ -51,6 +51,14 @@ namespace BookStore2.Controllers
                 TempData["errorMessage"] = "Model data is not valid";
                 return View();
             }
+            
+        }
+        public IActionResult UpdateUser()
+        {
+            return View();
+        }
+        public IActionResult DeleteUser()
+        {
             return View();
         }
     }
