@@ -27,12 +27,16 @@
                        <td>@admin.Id</td>
                        <td>@admin.Name</td>
                        <td>
+                           <form>
                             <div class="btn-group btn-group-sm">
-                               <a href="http://localhost:7011/Admin/EditAdmin/id=@admin.Id" class="btn btn-primary">Edit</a>
-                           </div>
-                            <div class="btn-group btn-group-sm">
-                                <a href="http://localhost:7011/Admin/DeleteAdmin/1" class="btn btn-danger">delete</a>
+                                    <button asp-action="UpdateAdmin" asp-controller="Admin"  asp-rout-id="@admin.Id" class="btn btn-primary">Edit</button>
+
+
                             </div>
+                            <div class="btn-group btn-group-sm">
+                                    <button asp-action="DeleteAdmin" asp-controller="Admin" asp-rout-id="@admin.Id" class="btn btn-danger">Delete</button>
+                            </div>
+                            </form>
                        </td>
                    </tr>
 

@@ -56,25 +56,75 @@ namespace BookStore2.Controllers
                     return View();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
-                throw;
+                TempData["errorMessage"] = e.Message;
+                return View("Index");
             }
             
         }
         //[HttpPost]
+        
         public IActionResult UpdateAdmin()
         {
             return View();
+            //try
+            //{
+            //    var admin = _context.BookStoreAdmins.SingleOrDefault(x => x.Id == Id);
+            //    if (admin != null)
+            //    {
+            //        var adminView = new AdminViewModel()
+            //        {
+            //            Id = admin.Id,
+            //            Name = admin.Name,
+            //        };
+            //        return View(adminView);
+            //    }
+            //    else
+            //    {
+            //        TempData["errorMessage"] = "Admin details are not avaliable with Id:{Id}";
+            //        return RedirectToAction("Index");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+
+            //    TempData["errorMessage"] = ex.Message;
+            //    return RedirectToAction("Index");
+            //}
+
+            //return View();
         }
-        [HttpPost]
-        public IActionResult DeleteAdmin()
+        public IActionResult DeleteAdmin(AdminViewModel model)
         {
-            return View();
+            try
+            {
+                var admin = _context.BookStoreAdmins.SingleOrDefault(x => x.Id == model.Id);
+
+                if (admin != null)
+                {
+                    _context.BookStoreAdmins.Remove(admin);
+                    _context.SaveChanges();
+                    TempData["successMessage"] = $"Admin Deleted Successfully{model.Id}";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["errorMessage"] = "Admin details not avaliable";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["errorMessage"] = e.Message;
+                return View("Index");
+
+            }
+            
 
         }
-        //[HttpGet]
+        
         public IActionResult Edit(int Id) {
             try
             {
@@ -100,10 +150,10 @@ namespace BookStore2.Controllers
                 TempData["errorMessage"]=ex.Message;
                 return RedirectToAction("Index");
             }
-            
+          
 
         }
-        //[HttpPost]
+        [HttpPost]
         public IActionResult EditAdmin(AdminViewModel adminData)
         {
             try
@@ -122,7 +172,7 @@ namespace BookStore2.Controllers
                 }
                 else
                 {
-                    TempData["errormessage"] = "Something Wrong happened";
+                    TempData["errormessage"] = "Model data is invalid";
                     return RedirectToAction("Index");
                 }
             }
@@ -134,8 +184,8 @@ namespace BookStore2.Controllers
             }
 
         }
-
-        public IActionResult Delete(int Id) {
+        [HttpGet]
+        public IActionResult DeleteAdmin(int Id) {
             try
             {
                 var admin = _context.BookStoreAdmins.SingleOrDefault(x => x.Id == Id);
@@ -162,7 +212,38 @@ namespace BookStore2.Controllers
             }
 
         }
+        [HttpPost]
+        public IActionResult Delete(AdminViewModel admin)
+        {
+            try
+            {
+                var Admin = _context.BookStoreAdmins.SingleOrDefault(x => x.Id == admin.Id);
+                if (Admin != null)
+                {
+
+                    _context.BookStoreAdmins.Remove(Admin);
+                    _context.SaveChanges();
+                    TempData["successmessage"] = "Admin deleted successfully";
+                }
+                else
+                {
+                    TempData["errormessage"] = $"Admin is not avaliable with{admin.Name}";
+                    return RedirectToAction("Index");
+
+                }
+            }
+            catch (Exception e )
+            {
+                TempData["errormessage"] = e.Message;
+                return RedirectToAction();
+            }
+            return View();
+        }
+        
+
+        }
 
     }
-}
+
+
 

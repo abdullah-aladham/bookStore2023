@@ -1,39 +1,51 @@
 ﻿@model BookStore2.Models.AdminViewModel
 @{
     Layout = "_Layout";
-    TempData["Title"] = "Update Admin";
+    // TempData["Title"] = "Update Admin";
     //var successMessage = TempData["successMessage"]?.ToString();
-    //var errorMessage = TempData["errorMessage"]?.ToString();
+    var errorMessage = TempData["errorMessage"]?.ToString();
 }
-
-<!DOCTYPE html>
+@Model List<AdminViewModel>
+    @if (!string.IsNullOrWhiteSpace(errorMessage))
+    {
+        <div class="alert alert-danger">
+            <strong>Error!</strong>@errorMessage
+            <button type="button"></button>
+        </div>
+    }
+    <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>AddAdmin</title>
+    <title>Update Admin</title>
+    <h2>Update Admin</h2>
     <style>
         input {
-            padding: 5px;
+        padding: 5px;
         }
 
         div {
-            margin: 5px;
+        margin: 5px;
         }
     </style>
 </head>
 <body>
-    <form action="UpdateAdmin" method="post">
+        <form action="EditAdmin" method="post">
         <div class="mb-3">
             <label class="form-label">Id</label>
-            <input type="text" class="form-control" asp-for="Id" readonly />
+            <input type="text" class="form-control" value='asp-for="Id"'  readonly />
         </div>
         <div class="mb-3">
             <label class="form-label">Name</label>
             <input type="text" class="form-control" asp-for="Name"  />
+             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="d-grid">
             <button type="submit" class="btn btn-primary">Submit</button>
-        </div>    </form>
+           
+        </div>    
+        </form>
+        
 </body>
 </html>
