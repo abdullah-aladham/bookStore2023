@@ -61,10 +61,10 @@ namespace BookStore2.Controllers
         {
             try
             {
-                var author = _context.BookStoreAdmins.SingleOrDefault(x => x.Id == Id);
+                var author = _context.BookStoreAuthors.SingleOrDefault(x => x.Id == Id);
                 if (author != null)
                 {
-                    var authorView = new AdminViewModel()
+                    var authorView = new AuthorViewModel()
                     {
                         Id = author.Id,
                         Name = author.Name
@@ -73,7 +73,7 @@ namespace BookStore2.Controllers
                 }
                 else
                 {
-                    TempData["errorMessage"] = $"Admin details are not avaliable with Id : {Id}";
+                    TempData["errorMessage"] = $"Author details are not avaliable with Id : {Id}";
                     return View();
                 }
             }
@@ -89,9 +89,10 @@ namespace BookStore2.Controllers
             if (ModelState.IsValid)
             {
                 var author = new AuthorModel() { 
+                    Id=authorUpdateData.Id,
                 Name=authorUpdateData.Name
                 };
-                _context.BookStoreAuthors.Add(author);
+                _context.BookStoreAuthors.Update(author);
                 _context.SaveChanges();
                 TempData["SuccessMessage"] = "Author Updated Successfully";
                 return RedirectToAction("Index");

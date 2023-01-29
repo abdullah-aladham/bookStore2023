@@ -6,7 +6,7 @@
 }
 @Model List<BookModel>
 
-    <h1>Index</h1>
+    <h1>Books</h1>
 
     <form>
         <button asp-action="AddUser" asp-controller="User" class="btn btn-primary">Add User</button>
@@ -27,12 +27,16 @@
                         <td>user.Id</td>
                         <td>user.Name</td>
                         <td>
-                            <div class="btn-group btn-group-sm">
-                                <a href="" asp-Controller="User" asp-action="UpdateUser" asp-route="@user.Id" class="btn btn-primary">Edit</a>
-                            </div>
-                            <div class="btn-group btn-group-sm">
-                                <a href="" asp-Controller="User" asp-action="DeleteUser" asp-route="@user.Id" class="btn btn-danger">delete</a>
-                            </div>
+                            <form>
+                                <div class="btn-group btn-group-sm">
+                                    <button asp-action="Edit" asp-controller="User" asp-route-id="@user.Id" class="btn btn-primary">Edit</button>
+
+
+                                </div>
+                                <div class="btn-group btn-group-sm">
+                                    <button asp-action="DeleteAdmin" asp-controller="Admin" asp-route-id="@user.Id" class="btn btn-danger">Delete</button>
+                                </div>
+                            </form>
                         </td>
                     </tr>
 

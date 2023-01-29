@@ -53,9 +53,62 @@ namespace BookStore2.Controllers
             }
             
         }
-        public IActionResult UpdateUser()
+        public IActionResult Edit(int Id)
         {
-            return View();
+            try
+            {
+                var author = _context.BookStoreUsers.SingleOrDefault(x => x.Id == Id);
+                if (author != null)
+                {
+                    var UserView = new UserViewModel()
+                    {
+                        Id = author.Id,
+                        Name = author.Name
+                    };
+                    return View(UserView);
+                }
+                else
+                {
+                    TempData["errorMessage"] = $"Author details are not avaliable with Id : {Id}";
+                    return View();
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["error Message"] = e.Message;
+                return RedirectToAction("Index");
+            }
+        }
+
+        public IActionResult UpdateUser(UserViewModel userUpdateData)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var book = new UserModel()
+                    {
+                        Id = userUpdateData.Id,
+                        Name = userUpdateData.Name
+                    };
+                    _context.BookStoreUsers.Update(book);
+                    _context.SaveChanges();
+                    TempData["SuccessMessage"] = "Author Updated Successfully";
+                    return View();
+                }
+                else
+                {
+                    TempData["errorMessage"] = "Couldn't update data";
+                    return View();
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["errorMessage"] = e.Message;
+                return RedirectToAction("Index");
+
+
+            }
         }
         public IActionResult DeleteUser()
         {

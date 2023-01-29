@@ -53,9 +53,62 @@ namespace BookStore2.Controllers
             }
 
         }
-        public IActionResult UpdateBook()
+        [HttpGet]
+        public IActionResult Edit(int Id)
         {
-            return View();
+            try
+            {
+                var author = _context.Books.SingleOrDefault(x => x.Id == Id);
+                if (author != null)
+                {
+                    var BookView = new BookViewModel()
+                    {
+                        Id = author.Id,
+                        Title = author.Title
+                    };
+                    return View(BookView);
+                }
+                else
+                {
+                    TempData["errorMessage"] = $"Author details are not avaliable with Id : {Id}";
+                    return View();
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["error Message"] = e.Message;
+                return RedirectToAction("Index");
+            }
+        }
+        public IActionResult UpdateBook(BookViewModel bookUpdateData)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var book = new BookModel()
+                    {
+                        Id = bookUpdateData.Id,
+                        Title = bookUpdateData.Title
+                    };
+                    _context.Books.Update(book);
+                    _context.SaveChanges();
+                    TempData["SuccessMessage"] = "Author Updated Successfully";
+                    return View();
+                }
+                else
+                {
+                    TempData["errorMessage"] = "Couldn't update data";
+                    return View();
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["errorMessage"] = e.Message;
+                return RedirectToAction("Index");
+
+
+            }
         }
         public IActionResult DeleteBook(int id) {
             return View();

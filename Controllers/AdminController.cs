@@ -97,6 +97,7 @@ namespace BookStore2.Controllers
             //return View();
            
         }
+        [HttpPost]
         public IActionResult DeleteAdmin(AdminViewModel model)
         {
             try
@@ -161,7 +162,7 @@ namespace BookStore2.Controllers
         
         }
         [HttpGet]
-        public IActionResult DeleteAdmin(int Id) {
+        public IActionResult Delete(int Id) {
             try
             {
                 var admin = _context.BookStoreAdmins.SingleOrDefault(x => x.Id == Id);
@@ -188,33 +189,33 @@ namespace BookStore2.Controllers
             }
 
         }
-        [HttpPost]
-        public IActionResult Delete(AdminViewModel admin)
-        {
-            try
-            {
-                var Admin = _context.BookStoreAdmins.SingleOrDefault(x => x.Id == admin.Id);
-                if (Admin != null)
-                {
+        //[HttpPost]
+        //public IActionResult DeleteAdmin(AdminViewModel admin)
+        //{
+        //    try
+        //    {
+        //        var Admin = _context.BookStoreAdmins.SingleOrDefault(x => x.Id == admin.Id);
+        //        if (Admin != null)
+        //        {
 
-                    _context.BookStoreAdmins.Remove(Admin);
-                    _context.SaveChanges();
-                    TempData["successmessage"] = "Admin deleted successfully";
-                }
-                else
-                {
-                    TempData["errormessage"] = $"Admin is not avaliable with{admin.Name}";
-                    return RedirectToAction("Index");
+        //            _context.BookStoreAdmins.Remove(Admin);
+        //            _context.SaveChanges();
+        //            TempData["successmessage"] = "Admin deleted successfully";
+        //        }
+        //        else
+        //        {
+        //            TempData["errormessage"] = $"Admin is not avaliable with{admin.Name}";
+        //            return RedirectToAction("Index");
 
-                }
-            }
-            catch (Exception e )
-            {
-                TempData["errormessage"] = e.Message;
-                return RedirectToAction();
-            }
-            return View();
-        }
+        //        }
+        //    }
+        //    catch (Exception e )
+        //    {
+        //        TempData["errormessage"] = e.Message;
+        //        return RedirectToAction();
+        //    }
+        //    return View();
+        //}
         
 
         }
