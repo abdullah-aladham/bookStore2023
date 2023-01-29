@@ -1,6 +1,9 @@
-﻿
+﻿@model BookStore2.Models.AdminViewModel
 @{
-    Layout = null;
+    Layout = "_Layout";
+    ViewData["Title"] = "Edit Admin";
+    var errorMessage = TempData["errorMessage"]?.ToString();
+    var successMessage = TempData["successmessage"]?.ToString();
 }
 
 <!DOCTYPE html>
@@ -8,9 +11,38 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
+    <title>@ViewData["Title"]</title>
 </head>
-<body>
+@if (!string.IsNullOrWhiteSpace(errorMessage))
+        {
+            <div class="alert alert-danger">
+                <strong>Error! : </strong>@errorMessage
+                <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
 
-</body>
+   
+    <form asp-action="UpdateAdmin" method="post">
+        
+        <div class="mb-3">
+            <label class="form-label">Id</label>
+            <input type="text" class="form-control" asp-for="Id" readonly />
+
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" asp-for="Name"  />
+            <span asp-validation-for="Name" class="text-danger"></span>
+
+        </div>
+        <div class="d-grid">
+            <button type="submit" class="btn btn-success">Update</button>
+        </div>
+    </form>
+
 </html>
+@section scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

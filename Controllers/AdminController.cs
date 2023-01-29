@@ -1,6 +1,7 @@
 ﻿using BookStore2.Data;
 using BookStore2.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BookStore2.Controllers
 {
@@ -64,37 +65,37 @@ namespace BookStore2.Controllers
             }
             
         }
-        //[HttpPost]
+        [HttpPost]
         
-        public IActionResult UpdateAdmin()
+        public IActionResult UpdateAdmin(AdminViewModel model)
         {
-            return View();
-            //try
-            //{
-            //    var admin = _context.BookStoreAdmins.SingleOrDefault(x => x.Id == Id);
-            //    if (admin != null)
-            //    {
-            //        var adminView = new AdminViewModel()
-            //        {
-            //            Id = admin.Id,
-            //            Name = admin.Name,
-            //        };
-            //        return View(adminView);
-            //    }
-            //    else
-            //    {
-            //        TempData["errorMessage"] = "Admin details are not avaliable with Id:{Id}";
-            //        return RedirectToAction("Index");
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    TempData["errorMessage"] = ex.Message;
-            //    return RedirectToAction("Index");
-            //}
-
+            try
+            {
+                if (ModelState.IsValid == true)
+                {
+                    var admin = new AdminModel()
+                    {
+                        Id = model.Id,
+                        Name = model.Name,
+                    };
+                    _context.BookStoreAdmins.Update(admin);
+                    _context.SaveChanges();
+                    TempData["sucessMessage"] = "Admin details Updated Successully!";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["errorMessage"] = "Model data is invalid";
+                    return View();
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["errorMessage"] = e.Message;
+                return View();
+            }
             //return View();
+           
         }
         public IActionResult DeleteAdmin(AdminViewModel model)
         {
@@ -125,7 +126,11 @@ namespace BookStore2.Controllers
 
         }
         
+        
+       
+        [HttpGet]
         public IActionResult Edit(int Id) {
+
             try
             {
                 var admin = _context.BookStoreAdmins.SingleOrDefault(x => x.Id == Id);
@@ -134,55 +139,26 @@ namespace BookStore2.Controllers
                     var adminView = new AdminViewModel()
                     {
                         Id = admin.Id,
-                        Name = admin.Name,
+                        Name = admin.Name
                     };
                     return View(adminView);
                 }
                 else
                 {
-                    TempData["errorMessage"] = "Admin details are not avaliable with Id:{Id}";
-                    return RedirectToAction("Index");
-                }
-            }
-            catch (Exception ex)
-            {
-
-                TempData["errorMessage"]=ex.Message;
-                return RedirectToAction("Index");
-            }
-          
-
-        }
-        [HttpPost]
-        public IActionResult EditAdmin(AdminViewModel adminData)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var admin = new AdminModel()
-                    {
-                        Id = adminData.Id,
-                        Name = adminData.Name,
-                    };
-                    _context.BookStoreAdmins.Update(admin);
-                    _context.SaveChanges();
-                    TempData["SuccessMessage"] = "Admin data updated Successfully";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    TempData["errormessage"] = "Model data is invalid";
+                    TempData["errorMessage"] = $"Admin details are not avaliable with Id : {Id}";
                     return RedirectToAction("Index");
                 }
             }
             catch (Exception e)
             {
-
-                TempData["errormessage"] = e.Message;
-                return View();
+                TempData["error Message"] = e.Message;
+                return RedirectToAction("Index");
             }
-
+            
+           
+        
+        
+        
         }
         [HttpGet]
         public IActionResult DeleteAdmin(int Id) {

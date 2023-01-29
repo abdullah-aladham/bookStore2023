@@ -56,6 +56,33 @@ namespace BookStore2.Controllers
 
           // return View();
         }
+        [HttpGet]
+        public IActionResult Edit(int Id)
+        {
+            try
+            {
+                var author = _context.BookStoreAdmins.SingleOrDefault(x => x.Id == Id);
+                if (author != null)
+                {
+                    var authorView = new AdminViewModel()
+                    {
+                        Id = author.Id,
+                        Name = author.Name
+                    };
+                    return View(authorView);
+                }
+                else
+                {
+                    TempData["errorMessage"] = $"Admin details are not avaliable with Id : {Id}";
+                    return View();
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["error Message"] = e.Message;
+                return RedirectToAction("Index");
+            }
+        }
         [HttpPost]
         public IActionResult UpdateAuthor(AuthorViewModel authorUpdateData)
         {
