@@ -14,7 +14,7 @@ namespace BookStore2.Controllers
 
         public IActionResult Index()
         {
-            var books = _context.BookStoreAdmins.ToList();
+            var books = _context.Books.ToList();
             List<BookViewModel> bookList = new List<BookViewModel>();
 
             if (books != null)
@@ -24,7 +24,7 @@ namespace BookStore2.Controllers
                     var BookViewModel = new BookViewModel()
                     {
                         Id = book.Id,
-                        Title = book.Name
+                        Title = book.Title
                     };
                     bookList.Add(BookViewModel);
                 }
@@ -58,19 +58,20 @@ namespace BookStore2.Controllers
         {
             try
             {
-                var author = _context.Books.SingleOrDefault(x => x.Id == Id);
-                if (author != null)
+                var book = _context.Books.SingleOrDefault(x => x.Id == Id);
+                if (book != null)
                 {
                     var BookView = new BookViewModel()
                     {
-                        Id = author.Id,
-                        Title = author.Title
+                        Id = book.Id,
+                        Title = book.Title
                     };
-                    return View(BookView);
+                    return RedirectToAction("Index");
+
                 }
                 else
                 {
-                    TempData["errorMessage"] = $"Author details are not avaliable with Id : {Id}";
+                    TempData["errorMessage"] = $"book details are not avaliable with Id : {Id}";
                     return View();
                 }
             }
@@ -110,9 +111,67 @@ namespace BookStore2.Controllers
 
             }
         }
-        public IActionResult DeleteBook(int id) {
-            return View();
+        [HttpGet]
+        public IActionResult Delete(int Id)
+        {
+            try
+            {
+                var book = _context.Books.SingleOrDefault(x => x.Id == Id);
+                if (book != null)
+                {
+                    var bookView = new BookViewModel()
+                    {
+                        Id = book.Id,
+                        Title = book.Title,
+                    };
+                    return View(bookView);
+                }
+                else
+                {
+                    TempData["errorMessage"] = $"Book details are not avaliable with Id:{Id}";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                TempData["errorMessage"] = ex.Message;
+                return RedirectToAction("Index");
+            }
+
         }
-    }
+        [HttpPost]//2
+        public IActionResult DeleteBook(BookViewModel model)
+        {
+            try
+            {
+                var book = _context.Books.SingleOrDefault(x => x.Id == model.Id);
+                if (book != null)
+                {
+                    _context.Books.Remove(book);
+                    _context.SaveChanges();
+                    TempData["successMessage"] = "Book deleted successfully";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["errorMessage"] = $"Book details not avaliable with the Id:{model.Id}";
+                    return RedirectToAction("index");
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["errorMessage"] = e.Message;
+                return View();
+
+            }
+
+
+        }
+
+
+
+    
+}
 
 }

@@ -1,7 +1,7 @@
-﻿@model BookStore2.Models.AdminViewModel
+﻿@model BookStore2.Models.UserViewModel
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Edit Admin";
+    ViewData["Title"] = "Edit User";
     var errorMessage = TempData["errorMessage"]?.ToString();
     var successMessage = TempData["successmessage"]?.ToString();
 }
@@ -22,7 +22,7 @@
 }
 
 
-<form asp-action="UpdateAdmin" method="post">
+<form asp-action="UpdateUser" method="post">
 
     <div class="mb-3">
         <label class="form-label">Id</label>

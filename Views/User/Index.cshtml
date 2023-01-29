@@ -24,8 +24,8 @@
                 foreach (var user in Model)
                 {
                     <tr>
-                        <td>user.Id</td>
-                        <td>user.Name</td>
+                        <td>@user.Id</td>
+                        <td>@user.Name</td>
                         <td>
                             <form>
                                 <div class="btn-group btn-group-sm">
@@ -34,7 +34,7 @@
 
                                 </div>
                                 <div class="btn-group btn-group-sm">
-                                    <button asp-action="DeleteAdmin" asp-controller="Admin" asp-route-id="@user.Id" class="btn btn-danger">Delete</button>
+                                    <button asp-action="Delete" asp-controller="User" asp-route-id="@user.Id" class="btn btn-danger">Delete</button>
                                 </div>
                             </form>
                         </td>

@@ -94,7 +94,8 @@ namespace BookStore2.Controllers
                     _context.BookStoreUsers.Update(book);
                     _context.SaveChanges();
                     TempData["SuccessMessage"] = "Author Updated Successfully";
-                    return View();
+                    return RedirectToAction("Index");
+
                 }
                 else
                 {
@@ -110,9 +111,66 @@ namespace BookStore2.Controllers
 
             }
         }
-        public IActionResult DeleteUser()
+        [HttpGet]
+        public IActionResult Delete(int Id)
         {
-            return View();
+            try
+            {
+                var user = _context.BookStoreUsers.SingleOrDefault(x => x.Id == Id);
+                if (user != null)
+                {
+                    var adminView = new AdminViewModel()
+                    {
+                        Id = user.Id,
+                        Name = user.Name,
+                    };
+                    return View(adminView);
+                }
+                else
+                {
+                    TempData["errorMessage"] = "User details are not avaliable with Id:{Id}";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                TempData["errorMessage"] = ex.Message;
+                return RedirectToAction("Index");
+            }
+
         }
+        [HttpPost]//2
+        public IActionResult DeleteUser(UserViewModel model)
+        {
+            try
+            {
+                var user = _context.BookStoreUsers.SingleOrDefault(x => x.Id == model.Id);
+                if (user != null)
+                {
+                    _context.BookStoreUsers.Remove(user);
+                    _context.SaveChanges();
+                    TempData["successMessage"] = "User deleted successfully";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["errorMessage"] = $"Author details not avaliable with the Id:{model.Id}";
+                    return RedirectToAction("index");
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["errorMessage"] = e.Message;
+                return View();
+
+            }
+
+
+        }
+
+
+
     }
 }
+

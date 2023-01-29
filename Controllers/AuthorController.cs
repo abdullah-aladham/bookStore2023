@@ -104,12 +104,63 @@ namespace BookStore2.Controllers
             }
             //return View();
         }
-        [HttpDelete]
-        public IActionResult DeleteAuthor()
+        [HttpGet]
+        public IActionResult Delete(int Id)
         {
-            return View();
-        }
+            try
+            {
+                var admin = _context.BookStoreAdmins.SingleOrDefault(x => x.Id == Id);
+                if (admin != null)
+                {
+                    var adminView = new AdminViewModel()
+                    {
+                        Id = admin.Id,
+                        Name = admin.Name,
+                    };
+                    return View(adminView);
+                }
+                else
+                {
+                    TempData["errorMessage"] = "Admin details are not avaliable with Id:{Id}";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
 
+                TempData["errorMessage"] = ex.Message;
+                return RedirectToAction("Index");
+            }
+
+        }
+        [HttpPost]//2
+        public IActionResult DeleteAuthor(AuthorViewModel model)
+        {
+            try
+            {
+                var author = _context.BookStoreAuthors.SingleOrDefault(x => x.Id == model.Id);
+                if (author != null)
+                {
+                    _context.BookStoreAuthors.Remove(author);
+                    _context.SaveChanges();
+                    TempData["successMessage"] = "Author deleted successfully";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["errorMessage"] = $"Author details not avaliable with the Id:{model.Id}";
+                    return RedirectToAction("index");
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["errorMessage"] = e.Message;
+                return View();
+
+            }
+
+
+        }
 
 
 
